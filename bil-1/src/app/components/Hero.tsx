@@ -3,9 +3,9 @@ import { Alex_Brush } from 'next/font/google'
 import { FaSearch } from "react-icons/fa";
 
 const alexbrush = Alex_Brush({
-    weight: '400',
-    subsets: ['latin'],
-  })
+  weight: '400',
+  subsets: ['latin'],
+})
 
 
 const Hero = () => {

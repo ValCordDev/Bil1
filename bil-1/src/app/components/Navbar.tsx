@@ -2,6 +2,9 @@
 
 import { Alex_Brush } from 'next/font/google'
 import React from 'react'
+import {useAuthState} from 'react-firebase-hooks/auth'
+import {auth} from '@/app/firebase/config'
+import { useRouter } from 'next/navigation';
 
 import Logginn from './Logginn';
 import Nylisting from './Nylisting';
@@ -12,6 +15,10 @@ const alexbrush = Alex_Brush({
   })
 
 const Navbar = () => {
+    const [user] = useAuthState(auth);
+    const router = useRouter()
+    const userSession = sessionStorage.getItem('user');
+
   return (
     <div className="navbar flex items-center absolute">
         <div className="flex-1">
@@ -27,6 +34,7 @@ const Navbar = () => {
                     modal.showModal();
                 }
             }}>Logg inn</button></li>
+
             <li><button onClick={() => {
                 const modal = document.getElementById('NyListing') as HTMLDialogElement;
                 if (modal) {
