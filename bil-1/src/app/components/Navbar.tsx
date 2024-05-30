@@ -26,8 +26,8 @@ const Navbar = () => {
         {user ? (
             <div className="flex-none font-semibold">
                 <ul className="menu menu-horizontal px-1">
-                <li><a>TOS</a></li>
-                <li><a>Kontaktinformasjon</a></li>
+                <li><a href='personvern'>TOS</a></li>
+                <li><a href='kontakt'>Kontaktinformasjon</a></li>
                 <li> {/* Ny listing */}
                     <button onClick={() => {
                         const modal = document.getElementById('NyListing') as HTMLDialogElement;
@@ -71,8 +71,8 @@ const Navbar = () => {
         ): (
             <div className="flex-none font-semibold">
                 <ul className="menu menu-horizontal px-1">
-                <li><a>TOS</a></li>
-                <li><a>Kontaktinformasjon</a></li>
+                <li><a href='personvern'>TOS</a></li>
+                <li><a href='kontakt'>Kontaktinformasjon</a></li>
 
                 <li> {/* Logg inn */}
                 <button onClick={() => {
