@@ -3,9 +3,12 @@
 import { useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase/config';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 import { Alex_Brush } from 'next/font/google';
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle, FaApple } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
 
 const alexbrush = Alex_Brush({
     weight: '400',
@@ -13,9 +16,12 @@ const alexbrush = Alex_Brush({
   })
 
 export default function signup() {
-    
+
+    const [user] = useAuthState(auth);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const googleAuth = new GoogleAuthProvider();
+    const router = useRouter();
 
     const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
@@ -25,9 +31,24 @@ export default function signup() {
             console.log(res)
             setEmail('');
             setPassword('');
+            router.push('../');
         } catch (e) {
             console.error(e);
         }
+    }
+
+    const login = async () => {
+        try {
+            const res = await signInWithPopup(auth, googleAuth);
+            console.log(res);
+            router.push('profil');
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    if (user) {
+        router.push('../');
     }
 
     return (
@@ -48,7 +69,7 @@ export default function signup() {
 
             <div className="divider">ELLER</div>
 
-            <button className="btn btn-ghost input-bordered"><FaGoogle /> Logg inn med Google</button>
+            <button className="btn btn-ghost input-bordered" onClick={login}><FaGoogle /> Registrer deg med Google</button>
 
             <p>Har du allerede en bruker? <a className='text-blue-500 underline underline-offset-1' href='../'>Logg inn via hovedsiden</a></p>
         </div>

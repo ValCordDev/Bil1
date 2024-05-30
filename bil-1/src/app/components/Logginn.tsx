@@ -1,17 +1,29 @@
 'use client'
 
-import { FaGoogle } from "react-icons/fa";
-import { useState } from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { FaGoogle, FaApple } from "react-icons/fa";
+import React, { useState, useEffect } from 'react';
+import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase/config';
 import { useRouter } from "next/navigation";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const Logginn = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const googleAuth = new GoogleAuthProvider();
     const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
     const router = useRouter();
+
+    const login = async () => {
+        try {
+            const res = await signInWithPopup(auth, googleAuth);
+            console.log(res);
+            router.push('profil');
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
     const handleSignin = async () => {
         try {
@@ -19,10 +31,12 @@ const Logginn = () => {
             console.log(res)
             setEmail('');
             setPassword('');
+            router.push('profil');
         } catch (e) {
             console.error(e);
         }
     }
+
   return (
     <div className="modal-box">
         <div className='flex flex-col gap-5'>
@@ -41,7 +55,7 @@ const Logginn = () => {
 
             <div className="divider">ELLER</div>
 
-            <button className="btn btn-ghost input-bordered"><FaGoogle /> Logg inn med Google</button>
+            <button className="btn btn-ghost input-bordered" onClick={login}><FaGoogle /> Logg inn med Google</button>
 
             <p>Ingen bruker enda? <a className='text-blue-500 underline underline-offset-1' href='signup'>Lag ny bruker</a></p>
         </div>

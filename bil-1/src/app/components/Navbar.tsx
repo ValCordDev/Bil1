@@ -17,46 +17,89 @@ const alexbrush = Alex_Brush({
 const Navbar = () => {
     const [user] = useAuthState(auth);
     const router = useRouter()
-    const userSession = sessionStorage.getItem('user');
 
   return (
     <div className="navbar flex items-center absolute">
         <div className="flex-1">
-            <a className={`btn btn-ghost text-3xl ${alexbrush.className}`}>Bil1</a>
+            <a href="../" className={`btn btn-ghost text-3xl ${alexbrush.className}`}>Bil1</a>
         </div>
-        <div className="flex-none font-semibold">
-            <ul className="menu menu-horizontal px-1">
-            <li><a>TOS</a></li>
-            <li><a>Kontakt</a></li>
-            <li><button onClick={() => {
-                const modal = document.getElementById('LoggInn') as HTMLDialogElement;
-                if (modal) {
-                    modal.showModal();
-                }
-            }}>Logg inn</button></li>
+        {user ? (
+            <div className="flex-none font-semibold">
+                <ul className="menu menu-horizontal px-1">
+                <li><a>TOS</a></li>
+                <li><a>Kontaktinformasjon</a></li>
+                <li> {/* Ny listing */}
+                    <button onClick={() => {
+                        const modal = document.getElementById('NyListing') as HTMLDialogElement;
+                        if (modal) {
+                            modal.showModal();
+                        }
+                        }}>Ny listing
+                    </button>
+                </li>
+                {user ? (
+                <li> {/* Profil */}
+                <button onClick={() => router.push('/profil')}>Profil</button>
+                </li>
+                ) : (
+                    <li> {/* Logg inn */}
+                    <button onClick={() => {
+                        const modal = document.getElementById('LoggInn') as HTMLDialogElement
+                        if (modal) {
+                        modal.showModal()
+                        }
+                    }}>Logg inn
+                    </button>
+                    </li>
+                )}
 
-            <li><button onClick={() => {
-                const modal = document.getElementById('NyListing') as HTMLDialogElement;
-                if (modal) {
-                    modal.showModal();
-                }
-            }}>Ny listing</button></li>
+                <dialog id="LoggInn" className="modal">
+                    <Logginn />
+                    <form method="dialog" className="modal-backdrop">
+                        <button>close</button>
+                    </form>
+                </dialog>
+                <dialog id="NyListing" className="modal">
+                    <Nylisting />
+                    <form method="dialog" className="modal-backdrop">
+                        <button>close</button>
+                    </form>
+                </dialog>
 
-            <dialog id="LoggInn" className="modal">
-                <Logginn />
-                <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
-                </form>
-            </dialog>
-            <dialog id="NyListing" className="modal">
-                <Nylisting />
-                <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
-                </form>
-            </dialog>
+                </ul>
+            </div>
+        ): (
+            <div className="flex-none font-semibold">
+                <ul className="menu menu-horizontal px-1">
+                <li><a>TOS</a></li>
+                <li><a>Kontaktinformasjon</a></li>
 
-            </ul>
-        </div>
+                <li> {/* Logg inn */}
+                <button onClick={() => {
+                    const modal = document.getElementById('LoggInn') as HTMLDialogElement
+                    if (modal) {
+                    modal.showModal()
+                    }
+                }}>Logg inn
+                </button>
+                </li>
+
+                <dialog id="LoggInn" className="modal">
+                    <Logginn />
+                    <form method="dialog" className="modal-backdrop">
+                        <button>close</button>
+                    </form>
+                </dialog>
+                <dialog id="NyListing" className="modal">
+                    <Nylisting />
+                    <form method="dialog" className="modal-backdrop">
+                        <button>close</button>
+                    </form>
+                </dialog>
+
+                </ul>
+            </div>
+        )}
     </div>
   )
 }
