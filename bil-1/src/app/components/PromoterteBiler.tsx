@@ -48,8 +48,8 @@ const PromoterteBiler = () => {
                     <div key={bil.id} className='border border-gray-400 rounded-[2rem] bg-slate-50'>
                         <Image src={(bil as { id: string; image: string }).image} width={'450'} height={'400'} alt={''} className='rounded-t-[1.9rem]'></Image>
                     <div className='m-5'>
-                        <h1 className='text-gray-950 font-medium text-xl'>{(bil as { id: string; brand: string }).brand} - {(bil as { id: string; year: string }).year}</h1>
-                        <p className='text-gray-500 font-normal text-sm'>{(bil as { id: string; model: string }).model}</p>
+                        <h1 className='text-gray-950 font-medium text-xl'>{(bil as { id: string; brand: string }).brand} {(bil as { id: string; model: string }).model}</h1>
+                        <p className='text-gray-500 font-normal text-sm'>{(bil as { id: string; year: string }).year}</p>
                     </div>
 
                     <div className='divider m-6'></div>
