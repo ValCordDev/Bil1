@@ -63,7 +63,7 @@ const Nylisting = () => {
     }
 
   return (
-    <div className="modal-box min-w-[35rem]">
+    <div className="modal-box min-w-[40rem]">
         <div className='flex flex-col gap-5'>
             <h1 className={`text-xl text-center`}>Ny listing</h1>
             <div className='flex flex-row justify-between'>    
